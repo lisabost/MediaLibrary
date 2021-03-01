@@ -21,13 +21,15 @@ namespace MediaLibrary
 
             if (response == "1")
             {
+                //make a new movie
                 Movie movie = new Movie();
 
+                //get title
                 Console.WriteLine("Enter movie title");
                 movie.title = Console.ReadLine();
 
                 string input;
-
+                //get genres
                 do
                 {
                     Console.WriteLine("Enter genre (or done to quit)");
@@ -43,6 +45,14 @@ namespace MediaLibrary
                 {
                     movie.genres.Add("(no genres listed");
                 }
+
+                //get director
+                Console.WriteLine("Enter movie director");
+                movie.director = Console.ReadLine();
+
+                //get runtime
+                Console.WriteLine("Enter running time (h:m:s)");
+                movie.runningTime = TimeSpan.Parse(Console.ReadLine());
             }
             else if (response == "2")
             {
