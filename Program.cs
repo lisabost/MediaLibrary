@@ -35,6 +35,7 @@ namespace MediaLibrary
 
             if (response == "1")
             {
+                logger.Info("User Choice: 1");
                 //make a new movie
                 Movie movie = new Movie();
 
@@ -71,11 +72,13 @@ namespace MediaLibrary
                     movie.runningTime = TimeSpan.Parse(Console.ReadLine());
 
                     fr.AddMovie(movie);
+                    logger.Info($"Media id {movie.mediaId} added");
                 }
 
             }
             else if (response == "2")
             {
+                logger.Info("User Choice: 1");
                 for (var i = 0; i < fr.mediaList.Count; i++)
                 {
                     Movie movie = fr.mediaList[i];
