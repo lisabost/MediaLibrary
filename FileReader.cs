@@ -14,6 +14,7 @@ namespace MediaLibrary
         public string filePath;
         public List<Media> mediaList = new List<Media>();
         private List<string> titles = new List<string>();
+        private List<UInt64> mediaIDs = new List<ulong>();
 
         public FileReader(string filePath)
         {
@@ -36,6 +37,7 @@ namespace MediaLibrary
                 {
                     arr = parser.ReadFields();
                     movie.mediaId = UInt64.Parse(arr[0]);
+                    mediaIDs.Add(UInt64.Parse(arr[0]));
                     movie.title = arr[1];
                     titles.Add(arr[1]);
                     movie.genres.Add(arr[2]);
@@ -63,7 +65,10 @@ namespace MediaLibrary
         }
         public void AddMovie(Movie movie)
         {
-
+            movie.mediaId = mediaIDs.Max() + 1;
+            StreamWriter sw = new StreamWriter(filePath, true);
+            sw.WriteLine($"{movie.mediaId},{movie.title},{string.Join("|", movie.genres)},{movie.director},{movie.runningTime}");
+            sw.Close();
         }
     }
 }
