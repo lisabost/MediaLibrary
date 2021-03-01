@@ -14,38 +14,45 @@ namespace MediaLibrary
         {
             logger.Info("Program started");
 
-            // Movie movie = new Movie
-            // {
-            //     mediaId = 123,
-            //     title = "Greatest Movie Ever, The (2020)",
-            //     director = "Jeff Grissom",
-            //     // timespan (hours, minutes, seconds)
-            //     runningTime = new TimeSpan(2, 21, 23),
-            //     genres = { "Comedy", "Romance" }
-            // };
+            Console.WriteLine("1) Add Movie");
+            Console.WriteLine("2) Display All Movies");
+            Console.WriteLine("Enter to Quit");
+            string response = Console.ReadLine();
 
-            // Console.WriteLine(movie.Display());
+            if (response == "1")
+            {
+                Movie movie = new Movie();
 
-            // Album album = new Album
-            // {
-            //     mediaId = 321,
-            //     title = "Greatest Album Ever, The (2020)",
-            //     artist = "Jeff's Awesome Band",
-            //     recordLabel = "Universal Music Group",
-            //     genres = { "Rock" }
-            // };
-            // Console.WriteLine(album.Display());
+                Console.WriteLine("Enter movie title");
+                movie.title = Console.ReadLine();
 
-            // Book book = new Book
-            // {
-            //     mediaId = 111,
-            //     title = "Super Cool Book",
-            //     author = "Jeff Grissom",
-            //     pageCount = 101,
-            //     publisher = "",
-            //     genres = { "Suspense", "Mystery" }
-            // };
-            // Console.WriteLine(book.Display());
+                string input;
+
+                do
+                {
+                    Console.WriteLine("Enter genre (or done to quit)");
+                    input = Console.ReadLine();
+
+                    if (input != "done" && input.Length > 0)
+                    {
+                        movie.genres.Add(input);
+                    }
+                } while (input != "done");
+
+                if (movie.genres.Count == 0)
+                {
+                    movie.genres.Add("(no genres listed");
+                }
+            }
+            else if (response == "2")
+            {
+                //display movies
+            }
+
+
+
+
+
 
             string scrubbedFile = FileScrubber.ScrubMovies("movies.csv");
             logger.Info(scrubbedFile);
