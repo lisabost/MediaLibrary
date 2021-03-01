@@ -42,35 +42,37 @@ namespace MediaLibrary
                 Console.WriteLine("Enter movie title");
                 movie.title = Console.ReadLine();
 
-                string input;
-                //get genres
-                do
+                if (fr.isTitleUnique(movie.title))
                 {
-                    Console.WriteLine("Enter genre (or done to quit)");
-                    input = Console.ReadLine();
-
-                    if (input != "done" && input.Length > 0)
+                    string input;
+                    //get genres
+                    do
                     {
-                        movie.genres.Add(input);
-                    }
-                } while (input != "done");
+                        Console.WriteLine("Enter genre (or done to quit)");
+                        input = Console.ReadLine();
 
-                if (movie.genres.Count == 0)
-                {
-                    movie.genres.Add("(no genres listed");
+                        if (input != "done" && input.Length > 0)
+                        {
+                            movie.genres.Add(input);
+                        }
+                    } while (input != "done");
+
+                    if (movie.genres.Count == 0)
+                    {
+                        movie.genres.Add("(no genres listed");
+                    }
+
+                    //get director
+                    Console.WriteLine("Enter movie director");
+                    movie.director = Console.ReadLine();
+
+                    //get runtime
+                    Console.WriteLine("Enter running time (h:m:s)");
+                    movie.runningTime = TimeSpan.Parse(Console.ReadLine());
+
+                    fr.AddMovie(movie);
                 }
 
-                //get director
-                Console.WriteLine("Enter movie director");
-                movie.director = Console.ReadLine();
-
-                //get runtime
-                Console.WriteLine("Enter running time (h:m:s)");
-                movie.runningTime = TimeSpan.Parse(Console.ReadLine());
-
-                fr.AddMovie(movie);
-
-                
             }
             else if (response == "2")
             {
