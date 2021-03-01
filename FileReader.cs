@@ -13,6 +13,7 @@ namespace MediaLibrary
 
         public string filePath;
         public List<Media> mediaList = new List<Media>();
+        private List<string> titles = new List<string>();
 
         public FileReader(string filePath)
         {
@@ -36,6 +37,7 @@ namespace MediaLibrary
                     arr = parser.ReadFields();
                     movie.mediaId = UInt64.Parse(arr[0]);
                     movie.title = arr[1];
+                    titles.Add(arr[1]);
                     movie.genres.Add(arr[2]);
                     movie.director = arr[3];
                     movie.runningTime = TimeSpan.Parse(arr[4]);
@@ -49,7 +51,16 @@ namespace MediaLibrary
                 logger.Info(ex.StackTrace);
             }
         }
-
+        //check for duplicate titles
+        public bool isTitleUnique(Movie movie)
+        {
+            if (titles.ConvertAll(m => m.ToLower()).Contains(movie.title.ToLower()))
+            {
+                logger.Info("Duplicate movie title {Title}", movie.title);
+                return false;
+            }
+            return true;
+        }
         public void AddMovie(Movie movie)
         {
 
