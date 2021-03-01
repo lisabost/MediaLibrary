@@ -35,7 +35,7 @@ namespace MediaLibrary
                 while (!parser.EndOfData)
                 {
                     Movie movie = new Movie();
-                    
+
                     arr = parser.ReadFields();
                     movie.mediaId = UInt64.Parse(arr[0]);
                     mediaIDs.Add(UInt64.Parse(arr[0]));
@@ -55,11 +55,11 @@ namespace MediaLibrary
             }
         }
         //check for duplicate titles
-        public bool isTitleUnique(Movie movie)
+        public bool isTitleUnique(string title)
         {
-            if (titles.ConvertAll(m => m.ToLower()).Contains(movie.title.ToLower()))
+            if (titles.ConvertAll(m => m.ToLower()).Contains(title.ToLower()))
             {
-                logger.Info("Duplicate movie title {Title}", movie.title);
+                logger.Info("Duplicate movie title {Title}", title);
                 return false;
             }
             return true;
