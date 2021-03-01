@@ -1,7 +1,9 @@
 ﻿using System;
-using NLog.Web;
 using System.IO;
 using System.Collections.Generic;
+using Microsoft.VisualBasic.FileIO;
+using NLog.Web;
+using System.Linq;
 
 
 namespace MediaLibrary
@@ -13,6 +15,16 @@ namespace MediaLibrary
         static void Main(string[] args)
         {
             logger.Info("Program started");
+
+            if (!File.Exists("movies.scrubbed.csv"))
+            {
+                string scrubbedFile = FileScrubber.ScrubMovies("movies.csv");
+                logger.Info(scrubbedFile);
+            }
+
+            string filePath = "movies.scrubbed.csv";
+
+            FileReader fr = new FileReader(filePath);
 
             Console.WriteLine("1) Add Movie");
             Console.WriteLine("2) Display All Movies");
@@ -53,19 +65,14 @@ namespace MediaLibrary
                 //get runtime
                 Console.WriteLine("Enter running time (h:m:s)");
                 movie.runningTime = TimeSpan.Parse(Console.ReadLine());
+
+                
             }
             else if (response == "2")
             {
                 //display movies
             }
 
-
-
-
-
-
-            string scrubbedFile = FileScrubber.ScrubMovies("movies.csv");
-            logger.Info(scrubbedFile);
 
             logger.Info("Program ended");
         }
