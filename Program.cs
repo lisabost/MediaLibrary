@@ -26,6 +26,8 @@ namespace MediaLibrary
 
             FileReader fr = new FileReader(filePath);
 
+            fr.parseFile();
+
             Console.WriteLine("1) Add Movie");
             Console.WriteLine("2) Display All Movies");
             Console.WriteLine("Enter to Quit");
@@ -66,13 +68,18 @@ namespace MediaLibrary
                 Console.WriteLine("Enter running time (h:m:s)");
                 movie.runningTime = TimeSpan.Parse(Console.ReadLine());
 
+                fr.AddMovie(movie);
+
                 
             }
             else if (response == "2")
             {
-                //display movies
+                for (var i = 0; i < fr.mediaList.Count; i++)
+                {
+                    Movie movie = fr.mediaList[i];
+                    Console.WriteLine(movie.Display());
+                }
             }
-
 
             logger.Info("Program ended");
         }
