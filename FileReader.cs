@@ -12,7 +12,7 @@ namespace MediaLibrary
         private static NLog.Logger logger = NLog.Web.NLogBuilder.ConfigureNLog(Directory.GetCurrentDirectory() + "\\nlog.config").GetCurrentClassLogger();
 
         public string filePath;
-        public List<Media> mediaList = new List<Media>();
+        public List<Movie> mediaList = new List<Movie>();
         private List<string> titles = new List<string>();
         private List<UInt64> mediaIDs = new List<ulong>();
 
@@ -28,13 +28,14 @@ namespace MediaLibrary
             parser.HasFieldsEnclosedInQuotes = true;
             parser.SetDelimiters(",");
 
-            Movie movie = new Movie();
 
             string[] arr;
             try
             {
                 while (!parser.EndOfData)
                 {
+                    Movie movie = new Movie();
+                    
                     arr = parser.ReadFields();
                     movie.mediaId = UInt64.Parse(arr[0]);
                     mediaIDs.Add(UInt64.Parse(arr[0]));
